@@ -12,6 +12,7 @@
   },
   "scripts": {
     "build": "tsc",
+    "dev": "tsc -w",
     "lint": "tslint --project tsconfig.json --config tslint.json",
     "lint-fix": "npm run lint --fix",
     "lazyboy": "cd demo && tns prepare android && tns build android && cd ../src",
