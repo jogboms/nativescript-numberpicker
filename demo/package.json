@@ -12,7 +12,7 @@
   },
   "scripts": {
     "lint": "tslint --project tsconfig.json --config tslint.json",
-    "lint-fix": "npm run lint --fix",
+    "lint-fix": "npm run lint --fix"
   },
   "dependencies": {
     "nativescript-numberpicker": "file:../src",
