@@ -1,5 +1,5 @@
 <Page 
-  xmlns="http://schemas.nativescript.org/tns.xsd"
+  xmlns="http://schemas.nativescript.org/tns.xsd" 
   xmlns:numberpicker="nativescript-numberpicker" loaded="loaded">
   <StackLayout style.backgroundColor="green" id="st">
     <Label text="Find numberpicker below" class="message" textWrap="true"/>

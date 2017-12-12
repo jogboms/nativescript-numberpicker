@@ -1,7 +1,7 @@
-import numberpicker = require("nativescript-numberpicker");
-import page = require("ui/page");
-export function loaded(params:any) {
-    let page = <page.Page> params.object;
-    let np =<numberpicker.NumberPicker> page.getViewById("np");
+import { NumberPicker } from "nativescript-numberpicker";
+import { Page } from "tns-core-modules/ui/page";
+
+export function loaded({ object: page }: { object: Page }) {
+    let np = <NumberPicker>page.getViewById("np");
     console.log("value of numberpicker is ", np.value);
 }
