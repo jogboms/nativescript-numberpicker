@@ -4,23 +4,29 @@
   "nativescript": {
     "id": "org.nativescript.demo",
     "tns-ios": {
-      "version": "2.2.1"
+      "version": "3.3.0"
     },
     "tns-android": {
-      "version": "2.2.0"
+      "version": "3.3.1"
     }
   },
+  "scripts": {
+    "lint": "tslint --project tsconfig.json --config tslint.json",
+    "lint-fix": "npm run lint --fix",
+  },
   "dependencies": {
-    "nativescript-numberpicker": "file:..",
-    "tns-core-modules": "^2.2.1"
+    "nativescript-numberpicker": "file:../src",
+    "tns-core-modules": "^3.3.0"
   },
   "devDependencies": {
-    "babel-traverse": "6.7.6",
-    "babel-types": "6.7.7",
-    "babylon": "6.7.0",
+    "babel-traverse": "6.25.0",
+    "babel-types": "6.25.0",
+    "babylon": "6.17.3",
     "filewalker": "0.1.2",
     "lazy": "1.0.11",
-    "nativescript-dev-typescript": "^0.3.2",
-    "typescript": "^1.8.10"
+    "tns-platform-declarations": "^3.3.0",
+    "nativescript-dev-typescript": "^0.5.1",
+    "tslint": "~5.6.0",
+    "typescript": "~2.4.2"
   }
 }
