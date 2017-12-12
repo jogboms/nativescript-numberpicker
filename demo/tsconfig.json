@@ -2,12 +2,30 @@
     "compilerOptions": {
         "module": "commonjs",
         "target": "es5",
-        "sourceMap": true,
+        "allowSyntheticDefaultImports": true,
         "experimentalDecorators": true,
-        "noEmitHelpers": true
+        "emitDecoratorMetadata": true,
+        "noEmitHelpers": true,
+        "noEmitOnError": true,
+        "skipLibCheck": true,
+        "lib": [
+            "es6",
+            "dom",
+            "es2016.array.include",
+            "es2015.iterable"
+        ],
+        "baseUrl": ".",
+        "paths": {
+            "*": [
+                "./node_modules/tns-core-modules/*",
+                "./node_modules/*"
+            ]
+        }
     },
     "exclude": [
         "node_modules",
-        "platforms"
+        "platforms",
+        "**/*.aot.ts",
+        "**/*.spec.ts"
     ]
 }

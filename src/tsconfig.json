@@ -1,22 +1,31 @@
 {
     "compilerOptions": {
-        "target": "es5",
         "module": "commonjs",
-        "sourceMap": true,
-        "removeComments": true,
+        "target": "es5",
+        "allowSyntheticDefaultImports": true,
         "experimentalDecorators": true,
-        "noEmitHelpers": false,
-        "declaration": false
+        "emitDecoratorMetadata": true,
+        "noEmitHelpers": true,
+        "noEmitOnError": true,
+        "skipLibCheck": true,
+        "lib": [
+            "es6",
+            "dom",
+            "es2016.array.include",
+            "es2015.iterable"
+        ],
+        "baseUrl": ".",
+        "paths": {
+            "*": [
+                "./node_modules/tns-core-modules/*",
+                "./node_modules/*"
+            ]
+        }
     },
-    "files": [
-      "node_modules/tns-core-modules/tns-core-modules.d.ts",
-      "node_modules/tns-platform-declarations/tns-core-modules/android17.d.ts",
-      "node_modules/tns-platform-declarations/tns-core-modules/ios.d.ts",
-      "node_modules/tns-platform-declarations/tns-core-modules/org.nativescript.widgets.d.ts",
-      "numberpicker.d.ts",
-      "numberpicker.common.ts",
-      "numberpicker.android.ts", 
-      "numberpicker.ios.ts"
-    ],
-    "compileOnSave": false
+    "exclude": [
+        "node_modules",
+        "platforms",
+        "**/*.aot.ts",
+        "**/*.spec.ts"
+    ]
 }
