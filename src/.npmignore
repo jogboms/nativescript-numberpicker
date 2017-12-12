@@ -1,0 +1,11 @@
+node_modules
+typings
+hooks
+.gitignore
+tslint.json
+tsconfig.json
+*.png
+*.log
+*.map
+*.ts
+!*.d.ts
