@@ -1,42 +1,43 @@
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var common = require("./numberpicker.common");
-global.moduleMerge(common, exports);
+Object.defineProperty(exports, "__esModule", { value: true });
+var numberpicker_common_1 = require("./numberpicker.common");
 var NumberPicker = (function (_super) {
     __extends(NumberPicker, _super);
     function NumberPicker() {
-        _super.call(this);
-        this._ios = new UIStepper();
-        this._changeHandler = NumberPickerChangeHandlerImpl.initWithOwner(new WeakRef(this));
-        this._ios.addTargetActionForControlEvents(this._changeHandler, "valueChanged", UIControlEvents.UIControlEventValueChanged);
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     Object.defineProperty(NumberPicker.prototype, "ios", {
         get: function () {
-            return this._ios;
+            return this.nativeView;
         },
         enumerable: true,
         configurable: true
     });
-    NumberPicker.prototype._onValuePropertyChanged = function (data) {
-        this._ios.value = data.newValue;
+    NumberPicker.prototype.createNativeView = function () {
+        this._ios = new UIStepper();
+        this._changeHandler = NumberPickerChangeHandlerImpl.initWithOwner(new WeakRef(this));
+        this._ios.addTargetActionForControlEvents(this._changeHandler, "valueChanged", 4096);
+        return this._ios;
     };
-    NumberPicker.prototype._onMinValuePropertyChanged = function (data) {
-        this._ios.minimumValue = data.newValue;
+    NumberPicker.prototype[numberpicker_common_1.valueProperty.setNative] = function (value) {
+        this.nativeView.value = value;
     };
-    NumberPicker.prototype._onMaxValuePropertyChanged = function (data) {
-        this._ios.maximumValue = data.newValue;
+    NumberPicker.prototype[numberpicker_common_1.minValueProperty.setNative] = function (value) {
+        this.nativeView.minimumValue = value;
+    };
+    NumberPicker.prototype[numberpicker_common_1.maxValueProperty.setNative] = function (value) {
+        this.nativeView.maximumValue = value;
+    };
+    NumberPicker.prototype.disposeNativeView = function () {
+        this._ios = void 0;
     };
     return NumberPicker;
-}(common.NumberPicker));
+}(numberpicker_common_1.NumberPicker));
 exports.NumberPicker = NumberPicker;
 var NumberPickerChangeHandlerImpl = (function (_super) {
     __extends(NumberPickerChangeHandlerImpl, _super);
     function NumberPickerChangeHandlerImpl() {
-        _super.apply(this, arguments);
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     NumberPickerChangeHandlerImpl.initWithOwner = function (owner) {
         var impl = NumberPickerChangeHandlerImpl.new();
@@ -49,11 +50,11 @@ var NumberPickerChangeHandlerImpl = (function (_super) {
             return;
         }
         if (owner) {
-            owner._onPropertyChangedFromNative(common.NumberPicker.valueProperty, sender.value);
+            owner.value = sender.value;
         }
     };
     NumberPickerChangeHandlerImpl.ObjCExposedMethods = {
-        'valueChanged': { returns: interop.types.void, params: [UIStepper] }
+        "valueChanged": { returns: interop.types.void, params: [UIStepper] }
     };
     return NumberPickerChangeHandlerImpl;
 }(NSObject));

@@ -1,64 +1,60 @@
-import common = require("./numberpicker.common"); 
-import dependencyObservable = require("ui/core/dependency-observable");
-import proxy = require("ui/core/proxy");
-import utils = require("utils/utils");
-import * as types from "utils/types";
+import { NumberPicker as Common, valueProperty, minValueProperty, maxValueProperty } from "./numberpicker.common";
 
-declare var interop:any;//to stop vscode from shouting error :)
+declare const UIStepper: any;
 
-global.moduleMerge(common, exports);
-
-export class NumberPicker extends common.NumberPicker {
+export class NumberPicker extends Common {
     private _ios: UIStepper;
     public _changeHandler: NSObject;
 
-    constructor() {
-        super();
-        this._ios = new UIStepper();
-        this._changeHandler = NumberPickerChangeHandlerImpl.initWithOwner(new WeakRef(this));
-        this._ios.addTargetActionForControlEvents(this._changeHandler, "valueChanged", UIControlEvents.UIControlEventValueChanged);
+    get ios(): UIStepper {
+        return this.nativeView;
     }
 
-    get ios(): UIStepper {
+    public createNativeView() {
+        this._ios = new UIStepper();
+        this._changeHandler = NumberPickerChangeHandlerImpl.initWithOwner(new WeakRef(this));
+        this._ios.addTargetActionForControlEvents(this._changeHandler, "valueChanged", UIControlEvents.ValueChanged);
         return this._ios;
     }
 
-    public _onValuePropertyChanged(data: dependencyObservable.PropertyChangeData){
-        this._ios.value = data.newValue;
+    [valueProperty.setNative](value: number) {
+        this.nativeView.value = value;
     }
 
-    public _onMinValuePropertyChanged(data: dependencyObservable.PropertyChangeData){
-        this._ios.minimumValue = data.newValue;
+    [minValueProperty.setNative](value: number) {
+        this.nativeView.minimumValue = value;
     }
 
-    public _onMaxValuePropertyChanged(data: dependencyObservable.PropertyChangeData){
-        this._ios.maximumValue = data.newValue;
+    [maxValueProperty.setNative](value: number) {
+        this.nativeView.maximumValue = value;
+    }
+
+    public disposeNativeView() {
+        this._ios = void 0;
     }
 }
 
-class NumberPickerChangeHandlerImpl extends NSObject{
+class NumberPickerChangeHandlerImpl extends NSObject {
     private _owner: WeakRef<NumberPicker>;
 
     public static initWithOwner(owner: WeakRef<NumberPicker>): NumberPickerChangeHandlerImpl {
-        let impl = <NumberPickerChangeHandlerImpl>NumberPickerChangeHandlerImpl.new();
+        const impl = <NumberPickerChangeHandlerImpl>NumberPickerChangeHandlerImpl.new();
         impl._owner = owner;
         return impl;
     }
 
     public valueChanged(sender: UIStepper) {
-
-        let owner = this._owner.get();
+        const owner = this._owner.get();
         if (!owner) {
             return;
         }
-        
+
         if (owner) {
-            owner._onPropertyChangedFromNative(common.NumberPicker.valueProperty, sender.value);
+            owner.value = sender.value;
         }
     }
 
     public static ObjCExposedMethods = {
-        'valueChanged': { returns: interop.types.void, params: [UIStepper] }
+        "valueChanged": { returns: interop.types.void, params: [UIStepper] }
     };
-
 }

@@ -1,54 +1,47 @@
-import common = require("./numberpicker.common"); 
-import dependencyObservable = require("ui/core/dependency-observable");
-import proxy = require("ui/core/proxy");
-import utils = require("utils/utils");
-import * as types from "utils/types";
+import { NumberPicker as Common, valueProperty, minValueProperty, maxValueProperty } from "./numberpicker.common";
 
-global.moduleMerge(common, exports);
-
-export class NumberPicker extends common.NumberPicker {
+export class NumberPicker extends Common {
     private _android: android.widget.NumberPicker;
-    public _listener: android.widget.NumberPicker.OnValueChangeListener;
 
-    constructor() {
-        super();
-        var that = new WeakRef(this);
+    get android(): android.widget.NumberPicker {
+        return this.nativeView;
+    }
 
-        this._listener = new android.widget.NumberPicker.OnValueChangeListener(
-            <utils.Owned & android.widget.NumberPicker.IOnValueChangeListener>{
+    public createNativeView() {
+        const that = new WeakRef(this);
+
+        this._android = new android.widget.NumberPicker(this._context);
+        this._android.setOnValueChangedListener(new android.widget.NumberPicker.OnValueChangeListener(
+            <android.widget.NumberPicker.IOnValueChangeListener>{
                 get owner() {
                     return that.get();
                 },
-                onValueChange: (picker: android.widget.NumberPicker, oldVal: number, newVal: number)=>{
-                    let instance = that.get();
-                    if(instance) {
-                        instance._onPropertyChangedFromNative(NumberPicker.valueProperty, newVal);
+                onValueChange: (picker: android.widget.NumberPicker, oldVal: number, newVal: number) => {
+                    const owner = that.get();
+                    if (owner) {
+                        owner.value = newVal;
                     }
                 }
             }
-        );
-    }
-
-    public _createUI() {
-        this._android = new android.widget.NumberPicker(this._context);
-        this._android.setOnValueChangedListener(this._listener);
+        ));
         this._android.setDescendantFocusability(android.widget.NumberPicker.FOCUS_BLOCK_DESCENDANTS);
         this._android.setWrapSelectorWheel(true);
-    }
-
-    get android(): android.widget.NumberPicker {
         return this._android;
     }
 
-    public _onValuePropertyChanged(data: dependencyObservable.PropertyChangeData){
-        this._android.setValue(data.newValue);
+    [valueProperty.setNative](value: number) {
+        this.nativeView.setValue(value);
     }
 
-    public _onMinValuePropertyChanged(data: dependencyObservable.PropertyChangeData){
-        this._android.setMinValue(data.newValue);
+    [minValueProperty.setNative](value: number) {
+        this.nativeView.setMinValue(value);
     }
 
-    public _onMaxValuePropertyChanged(data: dependencyObservable.PropertyChangeData){
-        this._android.setMaxValue(data.newValue);
+    [maxValueProperty.setNative](value: number) {
+        this.nativeView.setMaxValue(value);
+    }
+
+    public disposeNativeView() {
+        this._android = void 0;
     }
 }
