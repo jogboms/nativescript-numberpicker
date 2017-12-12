@@ -6,6 +6,10 @@
   "nativescript": {
     "id": "org.nativescript.demong"
   },
+  "scripts": {
+    "lint": "tslint --project tsconfig.json --config tslint.json",
+    "lint-fix": "npm run lint --fix"
+  },
   "dependencies": {
     "@angular/animations": "~4.4.1",
     "@angular/common": "~4.4.1",
