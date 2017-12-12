@@ -18,12 +18,15 @@
     "nativescript-angular": "~4.4.0",
     "nativescript-theme-core": "~1.0.2",
     "reflect-metadata": "~0.1.8",
+    "nativescript-numberpicker": "file:../src",
     "rxjs": "~5.4.2",
     "tns-core-modules": "~3.3.0",
     "zone.js": "~0.8.2"
   },
   "devDependencies": {
+    "tns-platform-declarations": "^3.3.0",
     "nativescript-dev-typescript": "~0.5.0",
+    "tslint": "~5.6.0",
     "typescript": "~2.4.2"
   }
 }
