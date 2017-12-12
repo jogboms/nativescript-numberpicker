@@ -15,12 +15,12 @@
     "dev": "tsc -w",
     "lint": "tslint --project tsconfig.json --config tslint.json",
     "lint-fix": "npm run lint --fix",
-    "lazyboy": "cd demo && tns prepare android && tns build android && cd ../src",
-    "demo": "cd demo && tns plugin remove nativescript-numberpicker && tns plugin add ../src && tns install",
-    "demo.ios": "npm run preparedemo && cd demo && tns emulate ios",
-    "demo.android": "npm run preparedemo && cd demo && tns run android",
-    "preparedemo": "npm run build && cd demo && tns plugin remove nativescript-numberpicker && tns plugin add ../src && tns install",
-    "setup": "npm i && cd demo && npm i && cd ../src && npm run build && cd demo && tns plugin add ../src && cd ../src"
+    "lazyboy": "cd ../demo && tns prepare android && tns build android && cd ../src",
+    "demo": "cd ../demo && tns plugin remove nativescript-numberpicker && tns plugin add ../src && tns install",
+    "demo.ios": "npm run preparedemo && cd ../demo && tns emulate ios",
+    "demo.android": "npm run preparedemo && cd ../demo && tns run android",
+    "preparedemo": "npm run build && cd ../demo && tns plugin remove nativescript-numberpicker && tns plugin add ../src && tns install",
+    "setup": "npm i && cd ../demo && npm i && cd ../src && npm run build && cd ../demo && tns plugin add ../src && cd ../src"
   },
   "repository": {
     "type": "git",
